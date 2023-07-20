@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/notes", (req, res) => {
   fs.readFile("./db/db.json", "utf8", (err, data) => {
     if (err) {
-      console.error("Cannot read file", err);
+      console.error(err);
       return res.status(500).json("Cannot read file");
     }
 
@@ -17,11 +17,36 @@ router.get("/notes", (req, res) => {
       const notes = JSON.parse(data);
       res.json(notes);
     } catch (err) {
-      console.error("Error handling the JSON data", err);
+      console.error(err);
       res.status(500).json("Error handling the JSON data");
     }
   });
 });
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file,
+router.post("/notes", (req, res) => {
+  const newNote = req.body;
+  newNote.id = uuid.v4();
 
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Cannot read new note");
+    }
+
+    try {
+      const notes = JSON.parse(data);
+      notes.push(newNote);
+      fs.writeFile("./db/db.json", JSON.stringify(notes), (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json("Cannot write new note");
+        }
+        res.json(newNote);
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json("Error handling the JSON data");
+    }
+  });
+});
 module.exports = router;
