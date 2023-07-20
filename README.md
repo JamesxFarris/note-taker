@@ -12,7 +12,7 @@
 
 [Note Taker.webm](https://github.com/JamesxFarris/note-taker/assets/51385562/72bf55cf-146c-4da7-98e6-102493be5b2b)
 
-<a href="https://jamesxfarris.github.io/note-taker/" >Link to live page<a>
+<a target=”_blank” href="https://note-taking-application-jf-656d3c2e5bff.herokuapp.com/" >Link to live page<a>
 
 <hr>
 
